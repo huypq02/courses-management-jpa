@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/students")
@@ -75,5 +76,24 @@ public class StudentController {
         studentRepository.deleteById(id);
 
         return ResponseEntity.ok("Student deleted successfully!");
+    }
+
+
+    @GetMapping("search")
+    public ResponseEntity<?> searchStudentsByName(@RequestParam String name) {
+        List<StudentEntity> students = studentRepository.findAll();
+        List<StudentDto> filteredStudents = students.stream()
+                .filter(student -> student.getName().toLowerCase().contains(name.toLowerCase()))
+                .map(student -> {
+                    StudentDto studentDto = new StudentDto();
+                    studentDto.setId(student.getId());
+                    studentDto.setName(student.getName());
+                    studentDto.setEmail(student.getEmail());
+                    studentDto.setAge(student.getAge());
+                    return studentDto;
+                })
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(filteredStudents);
     }
 }
