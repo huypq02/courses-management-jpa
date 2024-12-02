@@ -3,6 +3,7 @@ package com.hit.coursesmanagement.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity(name="courses")
 public class CourseEntity {
@@ -15,6 +16,17 @@ public class CourseEntity {
 
     @Column(name = "duration")
     private LocalDate duration;
+
+    @OneToMany(mappedBy = "course")
+    private List<RegistrationEntity> course;
+
+    public List<RegistrationEntity> getCourse() {
+        return course;
+    }
+
+    public void setCourse(List<RegistrationEntity> course) {
+        this.course = course;
+    }
 
     public int getId() {
         return id;

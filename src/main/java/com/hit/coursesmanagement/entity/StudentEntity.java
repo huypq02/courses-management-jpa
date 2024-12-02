@@ -2,6 +2,8 @@ package com.hit.coursesmanagement.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity(name="students")
 public class StudentEntity {
     @Id
@@ -17,8 +19,19 @@ public class StudentEntity {
     @Column(name = "age")
     private int age;
 
+    @OneToMany(mappedBy = "student")
+    private List<RegistrationEntity> student;
+
     public int getId() {
         return id;
+    }
+
+    public List<RegistrationEntity> getStudent() {
+        return student;
+    }
+
+    public void setStudent(List<RegistrationEntity> student) {
+        this.student = student;
     }
 
     public void setId(int id) {
