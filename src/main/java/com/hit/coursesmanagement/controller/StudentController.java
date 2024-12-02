@@ -61,7 +61,7 @@ public class StudentController {
         if (student.getEmail() != null){
             student.setEmail(studentEntity.getEmail());
         }
-        if (studentEntity.getAge() != 0){
+        if (studentEntity.getAge() > 0){
             student.setAge(studentEntity.getAge());
         }
 
