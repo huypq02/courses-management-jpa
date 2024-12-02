@@ -1,5 +1,6 @@
 package com.hit.coursesmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ public class CourseEntity {
     private LocalDate duration;
 
     @OneToMany(mappedBy = "course")
+    @JsonIgnore
     private List<RegistrationEntity> course;
 
     public List<RegistrationEntity> getCourse() {
